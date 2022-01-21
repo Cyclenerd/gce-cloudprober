@@ -103,14 +103,17 @@ bash 11_update_instances.sh
 
 Create an Monitoring alerting policies whose condition includes an MQL query.
 
-1. Create policy
-  ![Screenshot: MQL](img/policy.png)
+**1. Create policy**
 
-2. Enable MQL
-  ![Screenshot: MQL](img/mql.png)
+![Screenshot: MQL](img/policy.png)
 
-3. Query
-  ![Screenshot: Query](img/query.png)
+**2. Enable MQL**
+
+![Screenshot: MQL](img/mql.png)
+
+**3. Query**
+
+![Screenshot: Query](img/query.png)
 
 Monitoring Query Language (MQL):
 ```text
