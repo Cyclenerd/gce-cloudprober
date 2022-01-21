@@ -53,12 +53,14 @@ This configuration file is used by the Cloudprober software:
 vi "cloudprober_config.cfg"
 ```
 
-More help: <https://cloudprober.org/getting-started/#configuration>
+You can find some examples in the [examples](examples/) directory.
 
-💡 Tip: Check configuration file localy before you deploy it:
-```shell
-./cloudprober -configtest -config_file "cloudprober_config.cfg"
-```
+| 💡 Tip |
+|----------|
+| Check configuration file localy before you deploy it: `./cloudprober -configtest -config_file "cloudprober_config.cfg` |
+
+» Cloudprober documentation: <https://cloudprober.org/getting-started/#configuration>
+
 
 ## Deploy Cloudprober monitoring servers
 
@@ -96,6 +98,35 @@ They will then be redeployed one by one with the current template:
 ```shell
 bash 11_update_instances.sh
 ```
+
+## Alerting policies
+
+Create an Monitoring alerting policies whose condition includes an MQL query.
+
+1. Create policy
+  ![Screenshot: MQL](img/policy.png)
+
+2. Enable MQL
+  ![Screenshot: MQL](img/mql.png)
+
+3. Query
+  ![Screenshot: Query](img/query.png)
+
+Monitoring Query Language (MQL):
+```text
+fetch gce_instance
+| { metric 'custom.googleapis.com/cloudprober/<TYPE>/<NAME>/failure'
+  ; metric 'custom.googleapis.com/cloudprober/<TYPE>/<NAME>/total' }
+| filter (metric.dst == '<HOSTE_NAME>')
+| group_by [metric.dst]
+| align delta(1m)
+| join
+| div
+| condition val() > .9
+```
+
+» Google documentation: <https://cloud.google.com/monitoring/mql/alerts>
+
 
 ## Contributing
 
